@@ -18,13 +18,15 @@ import io.restassured.response.Response;
 
 public class ChatbotQuestionProcessor {
 
-	private static final String EXCEL_FILE_PATH = "D:\\3.Automation\\3. Web Automation\\Eclipse Local Workspace\\ESGChatbotUtili\\src\\test\\resources\\Excel Files\\Question Prepared For Testing.xlsx";
+	private static final String EXCEL_FILE_PATH = "/src/test/resources/Excel Files/Question Prepared For Testing.xlsx";
+	private static final String SHEET_NAME = "Set 1 Questions";
 	private static final String API_REQUEST_URL = "http://3.227.191.227:8080/api/chatbot/sql/request";
 	private static final String API_PROCESS_STATUS_URL = "http://3.227.191.227:8080/api/chatbot/sql/process-status";
 	private static final String API_RESPONSE_URL = "http://3.227.191.227:8080/api/chatbot/sql/response";
 
 	public static void main(String[] args) {
-		try (FileInputStream file = new FileInputStream(EXCEL_FILE_PATH); Workbook workbook = new XSSFWorkbook(file)) {
+		try (FileInputStream file = new FileInputStream(System.getProperty("user.dir") + EXCEL_FILE_PATH);
+				Workbook workbook = new XSSFWorkbook(file)) {
 
 			// Reading Excel file and sending API requests
 			processExcelAndSendRequests(workbook);
@@ -37,7 +39,7 @@ public class ChatbotQuestionProcessor {
 
 	// Method to process Excel file and send API requests
 	private static void processExcelAndSendRequests(Workbook workbook) {
-		Sheet sheet = workbook.getSheetAt(0); // Assume data is in the first sheet
+		Sheet sheet = workbook.getSheet(SHEET_NAME); // Assume data is in the first sheet
 		Iterator<Row> rowIterator = sheet.iterator();
 
 		// Get index of the "Question" column
