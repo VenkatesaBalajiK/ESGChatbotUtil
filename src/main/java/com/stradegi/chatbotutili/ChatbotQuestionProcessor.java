@@ -40,7 +40,8 @@ public class ChatbotQuestionProcessor {
 
 	// Method to process Excel file and send API requests
 	private static void processExcelAndSendRequests(Workbook workbook) {
-		Sheet sheet = workbook.getSheet(SHEET_NAME); // Assume data is in the first sheet
+		Sheet sheet = workbook.getSheet(SHEET_NAME);
+		
 		Iterator<Row> rowIterator = sheet.iterator();
 
 		// Get index of the "Question" column
